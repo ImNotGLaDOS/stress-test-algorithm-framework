@@ -1,0 +1,35 @@
+#!/bin/bash
+
+MAX_ITERATIONS=1000
+ITERATION=0
+
+while [ $ITERATION -lt $MAX_ITERATIONS ]; do
+    clear
+    echo "Test iteration: $ITERATION"
+
+    ../exec/gen.e &> ../test_c/in
+    echo "Gen OK"
+    
+    ../exec/sol.e < ../test_c/in &> ../test_c/ans
+    echo "Sol OK"
+    
+    ../exec/main.e < ../test_c/in &> ../test_c/out
+    echo "Main OK"
+
+    if [ -s ../test_c/ans ]; then
+        if ! diff -wq ../test_c/out ../test_c/ans; then
+            echo "Error found!"
+            break
+        fi
+    fi
+    
+    ITERATION=$((ITERATION + 1))
+done
+
+if [ -s ../test_c/ans ]; then
+    if [ $ITERATION -eq $MAX_ITERATIONS ]; then
+        echo "It's working! I guess..."
+    fi
+else
+    echo "Idk if it works correctly. At least, there are no RE"
+fi

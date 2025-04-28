@@ -1,0 +1,18 @@
+#!/bin/bash
+
+clear
+g++ -std=c++20 -fsanitize=address -o ../exec/main.e ../code/main.cpp
+echo "COMPILED"
+
+../exec/main.e < ../test_o/in &> ../test_o/out
+echo "EXECUTED"
+
+if [ -s ../test_o/ans ]; then
+    if ! diff -wq ../test_o/out ../test_o/ans; then
+        echo "Test didn't pass!"
+    else
+        echo "Test passed successfully!"
+    fi
+else
+    echo "You didn't specify the test, did you?"
+fi

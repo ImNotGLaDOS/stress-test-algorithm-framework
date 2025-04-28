@@ -1,0 +1,15 @@
+#!/bin/bash
+
+clear
+
+time (../exec/sol.e < ../test_c/in &> ../test_c/ans) 
+echo "Sol OK"
+
+time (../exec/main.e < ../test_c/in &> ../test_c/out)
+echo "Main OK"
+
+if ! diff -wq ../test_c/out ../test_c/ans; then
+    echo "Test didn't pass!"
+else
+    echo "Test passed successfully!"
+fi

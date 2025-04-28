@@ -1,0 +1,22 @@
+#!/bin/bash
+
+clear
+
+time (../exec/gen.e &> ../test_c/in)
+echo "Gen OK"
+
+time (../exec/sol.e < ../test_c/in &> ../test_c/ans)
+echo "Sol OK"
+
+time (../exec/main.e < ../test_c/in &> ../test_c/out)
+echo "Main OK"
+
+if [ -s ../test_c/ans ]; then
+    if ! diff -wq ../test_c/out ../test_c/ans; then
+        echo "Test didn't pass!"
+    else
+        echo "Test passed successfully!"
+    fi
+else
+    echo "You didn't write the solver, did you?"
+fi
