@@ -6,11 +6,42 @@ rm -f ../test_c/ans
 touch ../test_c/ans
 # for resetting ans if user removed solver
 
-g++ -std=c++20 -fsanitize=address -o ../exec/main.e ../code/main.cpp
-echo "main COMPILED"
+if [ -f ../code/main.cpp ]; then
+    g++ -std=c++20 -fsanitize=address -o ../exec/main.e ../code/main.cpp
+    echo "main COMPILED"
+elif [ -f ../code/main.py ]; then
+    rm ../exec/main.e
+    touch ../exec/main.e
+    echo "#!bin/python3" > ../exec/main.e
+    cat ../code/main.py >> ../exec/main.e
+    echo "main COMPILED (python)"
+else
+    echo "main NOT COMPILED"
+fi
 
-g++ -std=c++20 -fsanitize=address -o ../exec/sol.e ../code/sol.cpp
-echo "sol COMPILED"
+if [ -f ../code/sol.cpp ]; then
+    g++ -std=c++20 -fsanitize=address -o ../exec/sol.e ../code/sol.cpp
+    echo "sol COMPILED"
+elif [ -f ../code/sol.py ]; then
+    rm ../exec/sol.e
+    touch ../exec/sol.e
+    echo "#!bin/python3" > ../exec/sol.e
+    cat ../code/sol.py >> ../exec/sol.e
+    echo "sol COMPILED (python)"
+else
+    echo "sol NOT COMPILED"
+    rm ../exec/sol.e
+fi
 
-g++ -std=c++20 -fsanitize=address -o ../exec/gen.e ../code/gen.cpp
-echo "gen COMPILED"
+if [ -f ../code/gen.cpp ]; then
+    g++ -std=c++20 -fsanitize=address -o ../exec/gen.e ../code/gen.cpp
+    echo "gen COMPILED"
+elif [ -f ../code/gen.py ]; then
+    rm ../exec/gen.e
+    touch ../exec/gen.e
+    echo "#!bin/python3" > ../exec/gen.e
+    cat ../code/gen.py >> ../exec/gen.e
+    echo "gen COMPILED (python)"
+else
+    echo "gen NOT COMPILED"
+fi
