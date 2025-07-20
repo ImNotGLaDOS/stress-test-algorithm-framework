@@ -1,13 +1,22 @@
 #!/bin/bash
 
 clear
-g++ -std=c++20 -fsanitize=address -o ../exec/main.e ../code/main.cpp
-echo "COMPILED"
+if [ -f ../code/main.cpp ]; then
+    g++ -std=c++20 -fsanitize=address -o ../exec/main.e ../code/main.cpp
+    echo "COMPILED"
+elif [ -f ../code/main.py ]; then
+    rm ../exec/main.e
+    touch ../exec/main.e
+    chmod +x ../exec/main.e
+    echo "python3 ../code/main.py" > ../exec/main.e
+    echo "COMPILED (python)"
+else
+    echo "main COMPILE FAILED"
+fi
 
 all_passed=true
 any_test=false
 for test in ../test_o/*; do
-    # Only process directories with numeric names
     if [[ -d "$test" && $(basename "$test") =~ ^[0-9]+$ ]]; then
         test_num=$(basename "$test")
         in="$test/in"
@@ -22,7 +31,7 @@ for test in ../test_o/*; do
         ../exec/main.e < "$in" &> "$out"
         echo "Test $test_num: EXECUTED"
         if [[ -s "$ans" ]]; then
-            if ! diff -wq "$out" "$ans" &> /dev/null; then
+            if ! ./.comp "$out" "$ans"; then
                 echo "Test $test_num: FAILED"
                 all_passed=false
             else
@@ -34,6 +43,7 @@ for test in ../test_o/*; do
         echo ""
     fi
 done
+
 if $any_test; then
     if $all_passed; then
         echo "All tests PASSED!"

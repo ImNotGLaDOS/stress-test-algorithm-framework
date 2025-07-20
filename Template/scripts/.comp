@@ -1,0 +1,2 @@
+STDERR_SYMBOL="!"
+diff -wq <(sed "s/$STDERR_SYMBOL.*//" $1 | grep -v '^$') <(sed "s/$STDERR_SYMBOL.*//" $2 | grep -v '^$') &> /dev/null

@@ -1,4 +1,1 @@
-#!bin/python3
-from random import randint
-
-print(randint(1, 36))
+python3 ../code/gen.py

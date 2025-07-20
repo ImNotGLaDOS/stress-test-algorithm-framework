@@ -12,8 +12,8 @@ if [ -f ../code/main.cpp ]; then
 elif [ -f ../code/main.py ]; then
     rm ../exec/main.e
     touch ../exec/main.e
-    echo "#!bin/python3" > ../exec/main.e
-    cat ../code/main.py >> ../exec/main.e
+    chmod +x ../exec/main.e
+    echo "python3 ../code/main.py" > ../exec/main.e
     echo "main COMPILED (python)"
 else
     echo "main NOT COMPILED"
@@ -25,8 +25,8 @@ if [ -f ../code/sol.cpp ]; then
 elif [ -f ../code/sol.py ]; then
     rm ../exec/sol.e
     touch ../exec/sol.e
-    echo "#!bin/python3" > ../exec/sol.e
-    cat ../code/sol.py >> ../exec/sol.e
+    chmod +x ../exec/sol.e
+    echo "python3 ../code/sol.py" > ../exec/sol.e
     echo "sol COMPILED (python)"
 else
     echo "sol NOT COMPILED"
@@ -39,8 +39,8 @@ if [ -f ../code/gen.cpp ]; then
 elif [ -f ../code/gen.py ]; then
     rm ../exec/gen.e
     touch ../exec/gen.e
-    echo "#!bin/python3" > ../exec/gen.e
-    cat ../code/gen.py >> ../exec/gen.e
+    chmod +x ../exec/gen.e
+    echo "python3 ../code/gen.py" > ../exec/gen.e
     echo "gen COMPILED (python)"
 else
     echo "gen NOT COMPILED"

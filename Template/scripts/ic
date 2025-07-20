@@ -17,7 +17,7 @@ while [ $ITERATION -lt $MAX_ITERATIONS ]; do
     echo "Main OK"
 
     if [ -s ../test_c/ans ]; then
-        if ! diff -wq ../test_c/out ../test_c/ans; then
+        if ! ./.comp ../test_c/out ../test_c/ans; then
             echo "Error found!"
             break
         fi

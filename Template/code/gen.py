@@ -1,3 +1,5 @@
-from random import randint
+import random
+import time
 
-print(randint(1, 36))
+random.seed(int(time.time()))
+print(random.randint(1, 36))
