@@ -1,3 +1,5 @@
+This is micro-framework for stress-testing solution for algorithmic problems (like from codeforces.com)
+
 Это – микро-фреймворк для стресс-тестирования (и обычного тестирования тоже) решений, в основном, для алгосов.
 
 # Файловая структура
